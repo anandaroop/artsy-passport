@@ -13,4 +13,6 @@ logs
 results
 npm-debug.log
 config.coffee
-dist/
+dist
+.yalc
+yalc.lock

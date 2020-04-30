@@ -5,7 +5,7 @@
 passport = require 'passport'
 FacebookStrategy = require('passport-facebook').Strategy
 AppleStrategy = require('@nicokaiser/passport-apple').Strategy
-LocalStrategy = require('passport-local').Strategy
+LocalWithTotpStrategy = require('passport-local-with-totp').Strategy
 callbacks = require './callbacks'
 { serialize, deserialize } = require './serializers'
 opts = require '../options'
@@ -13,9 +13,10 @@ opts = require '../options'
 module.exports = ->
   passport.serializeUser serialize
   passport.deserializeUser deserialize
-  passport.use new LocalStrategy(
+  passport.use new LocalWithTotpStrategy(
     {
       usernameField: 'email'
+      totpField: 'otp_attempt'
       passReqToCallback: true
     },
     callbacks.local
